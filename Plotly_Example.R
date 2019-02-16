@@ -15,8 +15,8 @@ base <- plot_ly(sd, color = I("black"), height = 400) %>%
   group_by(MSA)
 
 p1 <- base %>%
-  summarise(miss = sum(Actual, na.rm=TRUE)) %>%
-  add_markers(x = ~miss, y = ~forcats::fct_reorder(MSA, miss, fun=sum), text = ~paste("MSA :", MSA, "<br> Months:", miss),
+  summarise(months = sum(Actual, na.rm=TRUE)) %>%
+  add_markers(x = ~months, y = ~forcats::fct_reorder(MSA, months, fun=sum), text = ~paste("MSA :", MSA, "<br> Months:", months),
     hoverinfo = "text") %>%                                                                                   
   layout(
     barmode = "overlay",
