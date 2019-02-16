@@ -17,7 +17,7 @@ base <- plot_ly(sd, color = I("black"), height = 400) %>%
 p1 <- base %>%
   summarise(months = sum(Actual, na.rm=TRUE)) %>%
   add_markers(x = ~months, y = ~forcats::fct_reorder(MSA, months, fun=sum), text = ~paste("MSA :", MSA, "<br> Months:", months),
-    hoverinfo = "text") %>%                                                                                   
+              hoverinfo = "text") %>%                                                                                   
   layout(
     barmode = "overlay",
     xaxis = list(title = "Number of Months in Recession"),
@@ -30,12 +30,24 @@ p2 <- base %>%
             hoverinfo = "text") %>% 
   layout(xaxis = list(title = ""))
 
+p3 <- base %>%
+  add_lines(x = ~Date, y = ~Actual, alpha = 0.3,  
+            text = ~paste("Probability :", Actual*100,"%", "<br> Date :", Date),
+            hoverinfo = "text") %>% 
+  layout(xaxis = list(title = ""))
+
 t <- list(
   family = "sans serif",
   size = 14,
   color = 'firebrick')
 
-plotexample <- subplot(p1, p2, titleX = TRUE, widths = c(0.3, 0.7)) %>% 
+recursive_subplot_1 <- subplot(p2, p3, titleX = TRUE, widths = 0.7, nrows = 2, shareX = TRUE) %>% 
+  hide_legend() %>%
+  highlight(dynamic = FALSE, selectize = TRUE, color="firebrick") %>% 
+  layout(font=t)
+
+
+plotexample <- subplot(p1, recursive_subplot_1, titleX = TRUE, nrows = 1, widths=c(0.3, 0.7)) %>% 
   hide_legend() %>%
   highlight(dynamic = FALSE, selectize = TRUE, color="firebrick") %>% 
   layout(font=t)
