@@ -1,13 +1,19 @@
-#install.packages("plotly", "tidyverse", "crosstalk", "forcats")
+#install.packages("plotly", "tidyverse", "crosstalk", "forcats", "lubridate", "zoo")
 library(plotly)
 library(tidyverse)
 library(crosstalk)
 library(forcats)
+library(lubridate)
+library(zoo)
 
 Sys.setenv("plotly_username"="kirschil")
 Sys.setenv("plotly_api_key"="Yhkw6FvAAABYRuOocguT")
 
 load("results.now.RData")
+
+results.now<- results.now %>% 
+  mutate(Date= as.yearmon(as.Date(date_decimal(Date)), format="%Y-%m-%d"))
+  
 
 sd <- highlight_key(results.now, ~MSA, "Select an MSA")
 
