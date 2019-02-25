@@ -1,4 +1,10 @@
-#install.packages("plotly", "tidyverse", "crosstalk", "forcats", "lubridate", "zoo")
+#install.packages("plotly")
+#install.packages("tidyverse")
+#install.packages("crosstalk")
+#install.packages("forcats")
+#install.packages("lubridate")
+#install.packages("zoo")
+
 library(plotly)
 library(tidyverse)
 library(crosstalk)
